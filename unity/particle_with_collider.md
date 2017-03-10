@@ -1,0 +1,10 @@
+# Particleにcolliderをつけよう
+
+unityはデフォルトでparticleにcolliderをつける仕組みがある。
+inspectorにあるcolliderとtriggerのmoduleがそれである。
+
+scriptだとcolliderは`void OnParticleCollision(GameObject go)`、triggerは`void OnParticleTrigger()`のmessageで衝突を検知できる。
+注意点としてはcollisionは引数としてGameObjectがあるが、OnParticleTriggerは引数なしな点である。
+（正直どっちもotherであるGameObjectが欲しいと思うのは自分だけだろうか）
+なお、いい感じなオプションとして衝突するとparticleがおしやられたりする挙動の調整ができる。
+
