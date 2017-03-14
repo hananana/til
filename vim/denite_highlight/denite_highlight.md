@@ -1,4 +1,4 @@
 # deniteのhighlightをなんとかする
 
-<img src="./img/sc.png"/>
+<img src="./sc.png"/>
 
