@@ -72,5 +72,7 @@ neueccというユーザーのリポジトリでextensionというワードで�
 
 GUIで指定できますw
 
+[https://github.com/search/advanced](https://github.com/search/advanced)
+
 ![img2](./sc2.png)
 
