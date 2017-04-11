@@ -19,11 +19,48 @@
 
 Xcodeでプロジェクトを開いて最初の一文字を打つまでに何秒かかりますか？ぼくは22秒かかりました。
 Android Studioだと何秒かかりますか？ぼくは27秒かかりました。
-さて、そんなIDEは閉じましょう。GUIでなければできない作業以外はterminalだけでやるべきです。
-IDEごとの機能の違いやkey mapの違いを覚えさせられることはぼくらから自由を奪っています。
+さて、じゃあIDEは閉じましょう。GUIでなければできない作業以外はzshでやります。
+CLIで作業は自動化するのです。
 同じ作業をマウスでポチポチすることに怒りを覚えなければなりません。
 scriptを作り自動化してください。
 コマンドを打ってmacに働いてもらってる間、今日のランチは一風堂にするか豚野郎にするか真剣に考えるべきです。
+
+### Setup Zsh
+
+```
+$ brew install zsh
+$ brew install zsh-completion
+$ brew install the_silver_searcher
+$ touch ~/.zshrc
+$ curl -sL --proto-redir -all,https https://zplug.sh/installer | zsh
+```
+
+#### zshrc
+```
+# zplugで便利ツールをいれる
+source ~/.zplug/zplug
+zplug "b4b4r07/enhancd", of:init.sh
+zplug "zsh-users/zsh-completions", of:src
+zplug "mollifier/cd-gitroot"
+zplug "zsh-users/zsh-syntax-highlighting", of:zsh-syntax-highlighting.zsh
+
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+zplug load --verbose
+
+# zshの補完をsmartcaseにする
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|.=*'
+
+# pyenvの設定
+export PYENV_ROOT="${HOME}/.pyenv"
+export PATH=${PYENV_ROOT}/bin:$PATH
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+```
 
 ### Setup Python
 
@@ -31,7 +68,8 @@ scriptを作り自動化してください。
 shellscript, ruby, python, go, etc...
 それぞれ好きな言語でいいじゃない、と思いますがvimとの相性を見るに
 goかpythonがいいのではないかと思います。
-ここではpythonのための設定を書きます。
+ぼくはpythonを選びました。
+なのでここではpythonのための設定を書きます。
 
 先の話になりますが、最速補完を実現するためにYouCompleteMeを使います。
 その場合pythonをinstallする際に注意が必要です。
@@ -41,14 +79,12 @@ goかpythonがいいのではないかと思います。
 #### Install python
 
 ```
-brew install pyenv
-brew install pyenv-virtualenv
-PYTHON_CONFIGURE_OPTS="--enable-framework" pyenv install 3.6.0
-pyenv global 3.6.0
-pyenv rehash
+$ brew install pyenv
+$ brew install pyenv-virtualenv
+$ PYTHON_CONFIGURE_OPTS="--enable-framework" pyenv install 3.6.0
+$ pyenv global 3.6.0
+$ pyenv rehash
 ```
-
-
 
 ### Setup vim
 
@@ -76,6 +112,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'LeafCage/yankround.vim'
 Plug 'rking/ag.vim'
+Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer --omnisharp-completer'}
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 Plug 'junegunn/vim-plug', {'dir': '~/.vim/plugged/vim-plug/autoload'}
 
