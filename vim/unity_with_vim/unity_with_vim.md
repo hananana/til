@@ -21,7 +21,12 @@
 ## 術式開始
 
 ```sh
-brew install python3
-brew install vim --with-client-server --with-python3 --with-override-system-vi
+$ brew install vim --with-client-server --with-override-system-vi
+$ touch $HOME/.vimrc
 ```
 
+## C#のワクチン
+
+### vimrc
+```
+```
