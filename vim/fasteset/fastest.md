@@ -1,4 +1,4 @@
-# 最速最堕落な開発環境構築
+# 最速最堕落なUnity開発環境構築
 
 ぼくはせっかちで怠惰です。
 なるたけ己は考えず、手を動かさず、待たず、物事を推し進めるのが理想だと思っています。
@@ -28,16 +28,23 @@ scriptを作り自動化してください。
 ### Setup Zsh
 
 ```
+# MacOSに標準で入ってるヤーツでも大丈夫です
 $ brew install zsh
-$ brew install zsh-completion
+
+# agは必須
 $ brew install the_silver_searcher
+
+# なんでもpecoってしまいましょう
+$ brew install peco
+
 $ touch ~/.zshrc
+
+# zplugで各種拡張を入れてどんどん便利にしていきます
 $ curl -sL --proto-redir -all,https https://zplug.sh/installer | zsh
 ```
 
 #### zshrc
 ```
-# zplugで便利ツールをいれる
 source ~/.zplug/zplug
 zplug "b4b4r07/enhancd", of:init.sh
 zplug "zsh-users/zsh-completions", of:src
@@ -72,11 +79,8 @@ goかpythonがいいのではないかと思います。
 なのでここではpythonのための設定を書きます。
 
 先の話になりますが、最速補完を実現するためにYouCompleteMeを使います。
-その場合pythonをinstallする際に注意が必要です。
+その場合pyenv経由でinstallする際に注意が必要です。
 [公式](https://github.com/Valloric/YouCompleteMe)にきちんと書かれていますが念のため。
-
-
-#### Install python
 
 ```
 $ brew install pyenv
@@ -86,7 +90,14 @@ $ pyenv global 3.6.0
 $ pyenv rehash
 ```
 
-### Setup vim
+MacOSならば初めからpython入ってるじゃん！なのですが、
+python2系はオワコン宣言がなされたのでpython3系を使いたいのです。
+
+### Setup Vim
+
+やっとvimの設定です。
+要となるのは高速なんでも検索のctrlpとag
+そして最速補完なYouCompleteMeです。
 
 ```
 brew install vim --with-client-server --with-override-system-vi
@@ -95,7 +106,6 @@ touch $HOME/.vimrc
 
 #### .vimrc
 ```
-
 filetype plugin indent off
 
 if has('vim_starting')
@@ -125,9 +135,4 @@ filetype plugin indent on
 
 ```
 
-
-
 # 参考
-
-[http://48n.jp/blog/2015/10/28/highway-faster-than-ag/](http://48n.jp/blog/2015/10/28/highway-faster-than-ag/)
-
